@@ -59,7 +59,7 @@
 //============================================================================
 //Set BUILD_SD to enable a slide show from the uSD card to the OLED.
 //Files need to be Windows 96x64 24-bit BMP, file size will be
-//exactly 18,488 bytes.
+//exactly 18,486 bytes.
 #define BUILD_SD (0)
 //============================================================================
 #include <avr/io.h>
@@ -969,9 +969,9 @@ void show_BMPs_in_root(void)
       //The file name must include ".BMP"
       if (0 != strstr(bmp_file.name(), ".BMP"))
       {
-        //The BMP must be exactly 18488 long
-        //(this is correct for 96x64, 24-bit)
-        if (18488 == bmp_file.size())
+        //The BMP should be exactly 18486 bits long
+        //(this is correct for 96x64, 24-bit, 54 byte header)
+        if (18484 <= bmp_file.size() <= 18490)
         {
           //Jump over BMP header. BMP must be 96x64 24-bit
           bmp_file.seek(54);
